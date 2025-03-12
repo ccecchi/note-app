@@ -4,14 +4,14 @@
 
 
 #include <string>
-#include "Collection.h"
+#include <iostream>
 
-class Note {
+class Note{
 public:
     explicit Note(const std::string &name,const std::string &text): name(name),text(text){}
 
-    void addToCollection(Collection& collection){
-        collection.addNote(this);
+    void showNote(){
+        std::cout << "Title: " << name << std::endl << text <<std::endl;
     }
     const std::string &getName() const {
         return name;

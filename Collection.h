@@ -6,12 +6,18 @@
 #include <vector>
 #include "Note.h"
 
-class Collection {
+class Collection{
 public:
     explicit Collection(const std::string& name): name(name){}
 
     void addNote(const Note &note){
         notes.push_back(note);
+    }
+
+    void showCollection(){
+        std::cout << name << ":" << std::endl;
+        for(auto note:notes)
+           std::cout<< "-" << note.getName() << std::endl;
     }
     const std::string &getName() const {
         return name;
@@ -31,7 +37,7 @@ public:
 
 private:
     std::string name;
-    std::vector <Note> notes;
+    std::vector<Note> notes;
 };
 
 
