@@ -4,11 +4,15 @@
 
 
 #include <string>
+#include "Collection.h"
 
 class Note {
 public:
-    explicit Note(std::string &name,std::string &text): name(name),text(text){}
+    explicit Note(const std::string &name,const std::string &text): name(name),text(text){}
 
+    void addToCollection(Collection& collection){
+        collection.addNote(this);
+    }
     const std::string &getName() const {
         return name;
     }

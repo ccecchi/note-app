@@ -8,8 +8,11 @@
 
 class Collection {
 public:
-    explicit Collection(std::string& name): name(name){}
+    explicit Collection(const std::string& name): name(name){}
 
+    void addNote(const Note &note){
+        notes.push_back(note);
+    }
     const std::string &getName() const {
         return name;
     }
