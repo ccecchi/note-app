@@ -1,4 +1,3 @@
-
 #ifndef NOTE_NOTE_H
 #define NOTE_NOTE_H
 
@@ -8,17 +7,17 @@
 
 class Note{
 public:
-    explicit Note(const std::string &name,const std::string &text): name(name),text(text){}
+    explicit Note(const std::string &name,const std::string &text,bool star): name(name),text(text){}
 
-    void showNote(){
-        std::cout << "Title: " << name << std::endl << text <<std::endl;
-    }
     const std::string &getName() const {
         return name;
     }
 
     void setName(const std::string &name) {
-        Note::name = name;
+        if(!locked)
+            this->name = name;
+        else
+            std::cout<<"Nota Bloccata";
     }
 
     const std::string &getText() const {
@@ -26,12 +25,25 @@ public:
     }
 
     void setText(const std::string &text) {
-        Note::text = text;
+        if(!locked)
+            this->text = text;
+        else
+            std::cout<<"Nota Bloccata";
     }
+
+    bool isLocked() const {
+        return locked;
+    }
+
+    void setLocked(bool locked) {
+        this->locked = locked;
+    }
+
 
 private:
     std::string name;
-    std::string text = " ";
+    std::string text = "";
+    bool locked = false;
 };
 
 
