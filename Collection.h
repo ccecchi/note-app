@@ -4,21 +4,17 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "Note.h"
 
 class Collection{
 public:
     explicit Collection(const std::string& name): name(name){}
 
-    void addNote(const Note &note){
+    void addNote(const std::shared_ptr<Note> note){
         notes.push_back(note);
     }
 
-    void showCollection(){
-        std::cout << name << ":" << std::endl;
-        for(auto note:notes)
-           std::cout<< "-" << note.getName() << std::endl;
-    }
     const std::string &getName() const {
         return name;
     }
@@ -27,17 +23,9 @@ public:
         Collection::name = name;
     }
 
-    const std::vector<Note> &getNotes() const {
-        return notes;
-    }
-
-    void setNotes(const std::vector<Note> &notes) {
-        Collection::notes = notes;
-    }
-
 private:
     std::string name;
-    std::vector<Note> notes;
+    std::vector<std::shared_ptr<Note>> notes;
 };
 
 
