@@ -10,8 +10,9 @@ class NoteApp {
 public:
 
 private:
-    std::vector<Note*> notes;
-    std::vector<Collection*> collections;
+    Collection baseCollection;
+    std::vector<Collection> collections;
+    std::vector<std::weak_ptr<Note>> important;
 };
 
 

@@ -7,4 +7,7 @@ add_executable(note main.cpp
         Note.cpp
         Note.h
         Collection.cpp
-        Collection.h)
+        Collection.h
+        NoteApp.cpp
+        NoteApp.h
+)
