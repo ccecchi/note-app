@@ -7,7 +7,7 @@
 
 class Note{
 public:
-    explicit Note(const std::string &name,const std::string &text,bool star): name(name),text(text){}
+    explicit Note(const std::string &name,const std::string &text): name(name),text(text){}
 
     const std::string &getName() const {
         return name;

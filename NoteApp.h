@@ -8,6 +8,10 @@
 
 class NoteApp {
 public:
+    void newNote(const std::string &name,const std::string &text,Collection &coll);
+    void newNote(const std::string &name,const std::string &text);
+
+    void newCollection(const std::string &name);
 
 private:
     Collection baseCollection;
