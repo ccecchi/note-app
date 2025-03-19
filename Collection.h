@@ -14,7 +14,13 @@ public:
     void addNote(const std::shared_ptr<Note> note){
         notes.push_back(note);
     }
-
+    bool searchNote(const std::string &name){
+        for(auto n:notes){
+            if(n->getName() == name)
+                return true;
+        }
+        return false;
+    }
     const std::string &getName() const {
         return name;
     }

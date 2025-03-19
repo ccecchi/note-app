@@ -14,3 +14,14 @@ void NoteApp::newCollection(const std::string &name) {
     Collection coll(name);
     collections.push_back(coll);
 }
+
+std::string NoteApp::searchNote(const std::string &name) {
+    for(auto c: collections){
+        if(c.searchNote(name))
+            return c.getName();
+    }
+    if(baseCollection.searchNote(name))
+        return baseCollection.getName();
+    return "Nota non trovata";
+
+}

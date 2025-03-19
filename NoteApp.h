@@ -8,10 +8,14 @@
 
 class NoteApp {
 public:
+    NoteApp(): baseCollection("Home"){}
+
     void newNote(const std::string &name,const std::string &text,Collection &coll);
     void newNote(const std::string &name,const std::string &text);
 
     void newCollection(const std::string &name);
+
+    std::string searchNote(const std::string &name);
 
 private:
     Collection baseCollection;
