@@ -14,12 +14,23 @@ public:
     void addNote(const std::shared_ptr<Note> note){
         notes.push_back(note);
     }
-    bool searchNote(const std::string &name){
+    std::shared_ptr<Note> searchNote(const std::string &name){
         for(auto n:notes){
             if(n->getName() == name)
-                return true;
+                return n;
         }
-        return false;
+        return nullptr;
+    }
+
+    void deleteNote(std::shared_ptr<Note> &note){
+        int i = 0;
+        for(auto n:notes){
+            if(n == note){
+                notes.erase(notes.begin() + i);
+                return;
+            }
+            i++;
+        }
     }
     const std::string &getName() const {
         return name;

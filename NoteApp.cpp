@@ -15,13 +15,34 @@ void NoteApp::newCollection(const std::string &name) {
     collections.push_back(coll);
 }
 
-std::string NoteApp::searchNote(const std::string &name) {
+std::shared_ptr<Note> NoteApp::searchNote(const std::string &name) {
     for(auto c: collections){
-        if(c.searchNote(name))
-            return c.getName();
+        if(c.searchNote(name) != nullptr)
+            return c.searchNote(name);
     }
-    if(baseCollection.searchNote(name))
-        return baseCollection.getName();
-    return "Nota non trovata";
+    return baseCollection.searchNote(name);
+}
 
+bool NoteApp::deleteCollection(const std::string &name) {
+    int i = 0;
+    for(auto c:collections){
+        if(c.getName() == name){
+            collections.erase(collections.begin() + i);
+            return true;
+        }
+        i++;
+    }
+    return false;
+}
+
+void NoteApp::deleteNote(std::shared_ptr<Note> &note) {
+    if(note->isLocked())
+        std::cout<<"Nota bloccata";
+    for(auto c:collections){
+        if(c.searchNote(note->getName()) == note){
+            c.deleteNote(note);
+            return;
+        }
+    baseCollection.deleteNote(note);
+    }
 }

@@ -15,7 +15,10 @@ public:
 
     void newCollection(const std::string &name);
 
-    std::string searchNote(const std::string &name);
+    bool deleteCollection(const std::string &name);
+    void deleteNote(std::shared_ptr<Note> &note);
+
+    std::shared_ptr<Note> searchNote(const std::string &name);
 
 private:
     Collection baseCollection;
