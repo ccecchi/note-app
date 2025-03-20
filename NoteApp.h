@@ -10,10 +10,21 @@ class NoteApp {
 public:
     NoteApp(): baseCollection("Home"){}
 
-    void newNote(const std::string &name,const std::string &text,Collection &coll);
-    void newNote(const std::string &name,const std::string &text);
+    void newNote(const std::string &name,const std::string &text,Collection &coll){
+        std::shared_ptr<Note> note(new Note(name,text));
+        coll.addNote(note);
+    }
+    void newNote(const std::string &name,const std::string &text){
+        std::shared_ptr<Note> note(new Note(name,text));
+        baseCollection.addNote(note);
+    }
 
-    void newCollection(const std::string &name);
+    void newCollection(const std::string &name){
+        Collection coll(name);
+        collections.push_back(coll);
+    }
+
+    void moveNote(std::shared_ptr<Note> &note, const std::string &name);
 
     bool deleteCollection(const std::string &name);
     void deleteNote(std::shared_ptr<Note> &note);
