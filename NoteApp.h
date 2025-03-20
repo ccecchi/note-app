@@ -20,6 +20,13 @@ public:
 
     std::shared_ptr<Note> searchNote(const std::string &name);
 
+    void lockNote(std::shared_ptr<Note> &note){
+        note->setLocked(true);
+    }
+    void unlockNote(std::shared_ptr<Note> &note){
+        note->setLocked(false);
+    }
+
 private:
     Collection baseCollection;
     std::vector<Collection> collections;
