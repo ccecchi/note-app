@@ -49,5 +49,18 @@ int NoteApp::collectionIndex(const std::string &name) {
     return i;
 }
 
+void NoteApp::update(const std::string &name) {
+    auto itNum = notesPerCollection.begin();
+
+    if(name == important.getName()){
+        *itNum = important.getNoteCount();
+        return;
+    }
+
+    itNum += collectionIndex(name);
+    auto itColl = collections.begin() + collectionIndex(name) + 1;
+    *itNum = itColl->getNoteCount();
+}
+
 
 

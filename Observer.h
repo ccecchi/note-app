@@ -4,7 +4,7 @@
 class Observer{
 public:
     virtual ~Observer() {}
-    virtual void update() = 0;
+    virtual void update(const std::string &name) = 0;
 };
 
 #endif //NOTE_OBSERVER_H

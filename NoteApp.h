@@ -51,6 +51,7 @@ public:
 
     int collectionIndex(const std::string &name);
 
+    void update(const std::string &name) override;
 
 private:
     Collection important;

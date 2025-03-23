@@ -4,15 +4,34 @@
 
 #include <string>
 #include <vector>
+#include <list>
 #include <memory>
 #include "Note.h"
+#include "Subject.h"
 
-class Collection{
+class Collection : public Subject{
 public:
     explicit Collection(const std::string& name): name(name){}
 
+    ~Collection() override{
+        for(auto obs : observers)
+            delete obs;
+    }
+    void registerObserver(Observer* o) override{
+        observers.push_back(o);
+    }
+    void unregisterObserver(Observer* o) override{
+        observers.remove(o);
+    }
+    void notify() override{
+        for(auto obs : observers)
+            obs->update(name);
+    }
+
     void addNote(const std::shared_ptr<Note> note){
         notes.push_back(note);
+        noteCount += 1;
+        notify();
     }
 
     void deleteNote(std::shared_ptr<Note> &note){
@@ -20,10 +39,12 @@ public:
         for(auto n:notes){
             if(n == note){
                 notes.erase(notes.begin() + i);
-                return;
+                break;
             }
             i++;
         }
+        noteCount -= 1;
+        notify();
     }
 
     std::shared_ptr<Note> searchNote(const std::string &name){
@@ -42,17 +63,15 @@ public:
         Collection::name = name;
     }
 
-    int getNumOfNotes() const {
-        return numOfNotes;
-    }
-    void setNumOfNotes(int numOfNotes) {
-        Collection::numOfNotes = numOfNotes;
+    int getNoteCount() const {
+        return noteCount;
     }
 
 private:
     std::string name;
     std::vector<std::shared_ptr<Note>> notes;
-    int numOfNotes = 0;
+    int noteCount = 0;
+    std::list<Observer*> observers;
 };
 
 
