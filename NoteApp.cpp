@@ -5,7 +5,7 @@ std::shared_ptr<Note> NoteApp::searchNote(const std::string &name) {
         if(c.searchNote(name))
             return c.searchNote(name);
     }
-    return baseCollection.searchNote(name);
+    return nullptr;
 }
 
 void NoteApp::moveNote(std::shared_ptr<Note> &note, const std::string &name) {
@@ -17,22 +17,15 @@ void NoteApp::moveNote(std::shared_ptr<Note> &note, const std::string &name) {
             break;
         }
     }
-    if(baseCollection.searchNote(note->getName()))
-        baseCollection.deleteNote(note);
-
     for(auto c:collections){
         if(c.getName() == name)
             c.addNote(note);
     }
-    if(baseCollection.getName() == name)
-        baseCollection.addNote(note);
 }
 
 void NoteApp::deleteNote(std::shared_ptr<Note> &note) {
     if(note->isLocked())
         std::cout<<"Nota bloccata";
-
-    baseCollection.deleteNote(note);
 
     for(auto c:collections){
         if(c.searchNote(note->getName()))
