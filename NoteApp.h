@@ -35,7 +35,7 @@ public:
         important.addNote(note);
     }
 
-    bool deleteCollection(const std::string &name);
+    void deleteCollection(const std::string &name);
     void deleteNote(std::shared_ptr<Note> &note);
 
     void moveNote(std::shared_ptr<Note> &note, const std::string &name);
@@ -49,7 +49,7 @@ public:
         note->setLocked(false);
     }
 
-    int collectionIndex(std::string &name);
+    int collectionIndex(const std::string &name);
 
 
 private:

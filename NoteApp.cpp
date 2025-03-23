@@ -34,16 +34,19 @@ void NoteApp::deleteNote(std::shared_ptr<Note> &note) {
     important.deleteNote(note);
 }
 
-bool NoteApp::deleteCollection(const std::string &name) {
+void NoteApp::deleteCollection(const std::string &name) {
+    auto it = collections.begin() + collectionIndex(name);
+    collections.erase(it);
+}
+
+int NoteApp::collectionIndex(const std::string &name) {
     int i = 0;
-    for(auto c:collections){
-        if(c.getName() == name){
-            collections.erase(collections.begin() + i);
-            return true;
-        }
+    for(auto c: collections){
+        if(c.getName() == name)
+            break;
         i++;
     }
-    return false;
+    return i;
 }
 
 
