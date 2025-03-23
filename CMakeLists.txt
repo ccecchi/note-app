@@ -10,4 +10,6 @@ add_executable(note main.cpp
         Collection.h
         NoteApp.cpp
         NoteApp.h
+        Observer.h
+        Subject.h
 )
