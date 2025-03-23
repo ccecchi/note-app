@@ -8,7 +8,7 @@
 
 class NoteApp {
 public:
-    NoteApp(): baseCollection("Home"){}
+    NoteApp(): baseCollection("Home"), important("Important"){}
 
     void newNote(const std::string &name,const std::string &text,Collection &coll){
         std::shared_ptr<Note> note(new Note(name,text));
@@ -24,10 +24,15 @@ public:
         collections.push_back(coll);
     }
 
-    void moveNote(std::shared_ptr<Note> &note, const std::string &name);
-
+    void moveToImportant(const std::shared_ptr<Note> &note){
+        if(important.searchNote(note->getName()))
+            std::cout << "Gia importante";
+        important.addNote(note);
+    }
     bool deleteCollection(const std::string &name);
     void deleteNote(std::shared_ptr<Note> &note);
+
+    void moveNote(std::shared_ptr<Note> &note, const std::string &name);
 
     std::shared_ptr<Note> searchNote(const std::string &name);
 
@@ -40,8 +45,9 @@ public:
 
 private:
     Collection baseCollection;
+    Collection important;
     std::vector<Collection> collections;
-    std::vector<std::weak_ptr<Note>> important;
+
 };
 
 

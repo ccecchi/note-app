@@ -14,13 +14,6 @@ public:
     void addNote(const std::shared_ptr<Note> note){
         notes.push_back(note);
     }
-    std::shared_ptr<Note> searchNote(const std::string &name){
-        for(auto n:notes){
-            if(n->getName() == name)
-                return n;
-        }
-        return nullptr;
-    }
 
     void deleteNote(std::shared_ptr<Note> &note){
         int i = 0;
@@ -32,17 +25,34 @@ public:
             i++;
         }
     }
+
+    std::shared_ptr<Note> searchNote(const std::string &name){
+        for(auto n:notes){
+            if(n->getName() == name)
+                return n;
+        }
+        return nullptr;
+    }
+
+
     const std::string &getName() const {
         return name;
     }
-
     void setName(const std::string &name) {
         Collection::name = name;
+    }
+
+    int getNumOfNotes() const {
+        return numOfNotes;
+    }
+    void setNumOfNotes(int numOfNotes) {
+        Collection::numOfNotes = numOfNotes;
     }
 
 private:
     std::string name;
     std::vector<std::shared_ptr<Note>> notes;
+    int numOfNotes = 0;
 };
 
 
