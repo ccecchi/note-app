@@ -6,6 +6,7 @@
 #include <vector>
 #include <list>
 #include <memory>
+#include <algorithm>
 #include "Note.h"
 #include "Subject.h"
 
@@ -29,16 +30,12 @@ public:
         notify();
     }
 
-    void deleteNote(std::shared_ptr<Note> &note){
-        int i = 0;
-        for(auto n:notes){
-            if(n == note){
-                notes.erase(notes.begin() + i);
-                break;
-            }
-            i++;
+    void deleteNote(const std::shared_ptr<Note>& note){
+        auto it = std::find(notes.begin(), notes.end(), note);
+        if (it != notes.end()) {
+            notes.erase(it);
+            notify();
         }
-        notify();
     }
 
     std::shared_ptr<Note> searchNote(const std::string &name){
