@@ -7,7 +7,7 @@ class Subject{
 public:
     virtual void registerObserver(Observer* o) = 0;
     virtual void unregisterObserver(Observer* o) = 0;
-    virtual void notify() = 0;
+    virtual void notify() const = 0;
     virtual ~Subject() {}
 };
 

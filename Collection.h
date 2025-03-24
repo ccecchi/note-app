@@ -20,12 +20,12 @@ public:
     void unregisterObserver(Observer* o) override{
         observers.remove(o);
     }
-    void notify() override{
+    void notify() const override {
         for(auto obs : observers)
             obs->update(name);
     }
 
-    void addNote(const std::shared_ptr<Note> note){
+    void addNote(const std::shared_ptr<Note> &note){
         notes.push_back(note);
         notify();
     }
@@ -38,7 +38,7 @@ public:
         }
     }
 
-    std::shared_ptr<Note> searchNote(const std::string &name){
+    std::shared_ptr<Note> searchNote(const std::string &name) const {
         for(auto n:notes){
             if(n->getName() == name)
                 return n;
