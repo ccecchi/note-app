@@ -13,10 +13,6 @@ class Collection : public Subject{
 public:
     explicit Collection(const std::string& name): name(name){}
 
-    ~Collection() override{
-        for(auto obs : observers)
-            delete obs;
-    }
     void registerObserver(Observer* o) override{
         observers.push_back(o);
     }
