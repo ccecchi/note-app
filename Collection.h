@@ -26,7 +26,6 @@ public:
 
     void addNote(const std::shared_ptr<Note> note){
         notes.push_back(note);
-        noteCount += 1;
         notify();
     }
 
@@ -39,7 +38,6 @@ public:
             }
             i++;
         }
-        noteCount -= 1;
         notify();
     }
 
@@ -60,13 +58,12 @@ public:
     }
 
     int getNoteCount() const {
-        return noteCount;
+        return notes.size();
     }
 
 private:
     std::string name;
     std::vector<std::shared_ptr<Note>> notes;
-    int noteCount = 0;
     std::list<Observer*> observers;
 };
 
