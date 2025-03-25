@@ -10,27 +10,29 @@
 #include "Note.h"
 #include "Subject.h"
 
-class Collection : public Subject{
+class Collection : public Subject {
 public:
-    explicit Collection(const std::string& name): name(name){}
+    explicit Collection(const std::string &name) : name(name) {}
 
-    void registerObserver(Observer* o) override{
+    void registerObserver(Observer *o) override {
         observers.push_back(o);
     }
-    void unregisterObserver(Observer* o) override{
+
+    void unregisterObserver(Observer *o) override {
         observers.remove(o);
     }
+
     void notify() const override {
-        for(auto obs : observers)
+        for (auto obs: observers)
             obs->update(name);
     }
 
-    void addNote(const std::shared_ptr<Note> &note){
+    void addNote(const std::shared_ptr<Note> &note) {
         notes.push_back(note);
         notify();
     }
 
-    void deleteNote(const std::shared_ptr<Note>& note){
+    void deleteNote(const std::shared_ptr<Note> &note) {
         auto it = std::find(notes.begin(), notes.end(), note);
         if (it != notes.end()) {
             notes.erase(it);
@@ -39,8 +41,8 @@ public:
     }
 
     std::shared_ptr<Note> searchNote(const std::string &name) const {
-        for(auto n:notes){
-            if(n->getName() == name)
+        for (auto n: notes) {
+            if (n->getName() == name)
                 return n;
         }
         return nullptr;
@@ -49,7 +51,7 @@ public:
     std::vector<std::string> getTitles() const {
         std::vector<std::string> titles;
         titles.reserve(notes.size());
-        for (auto &n : notes){
+        for (auto &n: notes) {
             titles.push_back(n->getName());
         }
         return titles;
@@ -58,6 +60,7 @@ public:
     const std::string &getName() const {
         return name;
     }
+
     void setName(const std::string &name) {
         Collection::name = name;
     }
@@ -69,7 +72,7 @@ public:
 private:
     std::string name;
     std::vector<std::shared_ptr<Note>> notes;
-    std::list<Observer*> observers;
+    std::list<Observer *> observers;
 };
 
 

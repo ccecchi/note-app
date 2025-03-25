@@ -1,35 +1,35 @@
 #include "NoteApp.h"
 
 std::shared_ptr<Note> NoteApp::searchNote(const std::string &name) {
-    for(auto c: collections){
-        if(c.searchNote(name))
+    for (auto c: collections) {
+        if (c.searchNote(name))
             return c.searchNote(name);
     }
     return nullptr;
 }
 
 void NoteApp::moveNote(std::shared_ptr<Note> note, const std::string &collectionName) {
-    for(auto c:collections){
-        if(c.searchNote(note->getName())){
-            if(c.getName() == collectionName)
+    for (auto c: collections) {
+        if (c.searchNote(note->getName())) {
+            if (c.getName() == collectionName)
                 std::cout << "Gia nella collezione";
             c.deleteNote(note);
             break;
         }
     }
-    for(auto c:collections){
-        if(c.getName() == collectionName)
+    for (auto c: collections) {
+        if (c.getName() == collectionName)
             c.addNote(note);
     }
 }
 
 void NoteApp::deleteNote(std::shared_ptr<Note> &note) {
-    if(note->isLocked()){
-        std::cout<<"Nota bloccata";
+    if (note->isLocked()) {
+        std::cout << "Nota bloccata";
         return;
     }
-    for(auto c:collections){
-        if(c.searchNote(note->getName()))
+    for (auto c: collections) {
+        if (c.searchNote(note->getName()))
             c.deleteNote(note);
     }
     importantNotes.deleteNote(note);
@@ -59,7 +59,7 @@ void NoteApp::deleteCollection(const std::string &collectionName) {
 
 
 void NoteApp::update(const std::string &collectionName) {
-    if (collectionName == importantNotes.getName()){
+    if (collectionName == importantNotes.getName()) {
         notesPerCollection[0] = importantNotes.getNoteCount();
         return;
     }
@@ -77,7 +77,7 @@ void NoteApp::update(const std::string &collectionName) {
 std::vector<std::string> NoteApp::getCollectionsNames() const {
     std::vector<std::string> titles;
     titles.reserve(collections.size());
-    for (auto &c : collections){
+    for (auto &c: collections) {
         titles.push_back(c.getName());
     }
     return titles;

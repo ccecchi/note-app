@@ -5,19 +5,19 @@
 #include <string>
 #include <iostream>
 
-class Note{
+class Note {
 public:
-    explicit Note(const std::string &name,const std::string &text): name(name),text(text){}
+    explicit Note(const std::string &name, const std::string &text) : name(name), text(text) {}
 
     const std::string &getName() const {
         return name;
     }
 
     void setName(const std::string &name) {
-        if(!locked)
+        if (!locked)
             this->name = name;
         else
-            std::cout<<"Nota Bloccata";
+            std::cout << "Nota Bloccata";
     }
 
     const std::string &getText() const {
@@ -25,10 +25,10 @@ public:
     }
 
     void setText(const std::string &text) {
-        if(!locked)
+        if (!locked)
             this->text = text;
         else
-            std::cout<<"Nota Bloccata";
+            std::cout << "Nota Bloccata";
     }
 
     bool isLocked() const {
