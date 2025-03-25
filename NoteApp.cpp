@@ -36,7 +36,7 @@ void NoteApp::deleteNote(std::shared_ptr<Note> &note) {
 }
 
 void NoteApp::deleteCollection(const std::string &collectionName) {
-    if (collectionName == importantNotes.getName())
+    if (collectionName == importantNotes.getName() || collections[0].getName() == collectionName)
         std::cout << "Non puoi";
     auto it = std::find_if(collections.begin(), collections.end(), [&collectionName](Collection c) {
         return c.getName() == collectionName;
