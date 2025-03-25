@@ -2,14 +2,14 @@
 
 void NoteApp::newNote(const std::string &noteName, const std::string &text, Collection &coll) {
     if (searchNote(noteName))
-        std::cout << "Nota con nome gia esistente";
+        throw std::invalid_argument("This name has already been used!");
     std::shared_ptr<Note> note(new Note(noteName, text));
     coll.addNote(note);
 }
 
 void NoteApp::newNote(const std::string &noteName, const std::string &text) {
     if (searchNote(noteName))
-        std::cout << "Nota con nome gia esistente";
+        throw std::invalid_argument("This name has already been used!");
     std::shared_ptr<Note> note(new Note(noteName, text));
     collections[0].addNote(note);
 }
@@ -22,11 +22,11 @@ void NoteApp::newCollection(const std::string &name) {
 
 void NoteApp::addToImportant(const std::shared_ptr<Note> &note) {
     if (importantNotes.searchNote(note->getName()))
-        std::cout << "Gia importante";
+        throw std::invalid_argument("Note is already important");;
     importantNotes.addNote(note);
 }
 
-std::shared_ptr<Note> NoteApp::searchNote(const std::string &name) {
+std::shared_ptr<Note> NoteApp::searchNote(const std::string &name) const {
     for (auto c: collections) {
         if (c.searchNote(name))
             return c.searchNote(name);
@@ -38,7 +38,7 @@ void NoteApp::moveNote(std::shared_ptr<Note> note, const std::string &collection
     for (auto c: collections) {
         if (c.searchNote(note->getName())) {
             if (c.getName() == collectionName)
-                std::cout << "Gia nella collezione";
+                throw std::invalid_argument("The note is already in the collection!");
             c.deleteNote(note);
             break;
         }
@@ -50,10 +50,9 @@ void NoteApp::moveNote(std::shared_ptr<Note> note, const std::string &collection
 }
 
 void NoteApp::deleteNote(std::shared_ptr<Note> &note) {
-    if (note->isLocked()) {
-        std::cout << "Nota bloccata";
-        return;
-    }
+    if (note->isLocked())
+        throw std::invalid_argument("The note is locked!");
+
     for (auto c: collections) {
         if (c.searchNote(note->getName()))
             c.deleteNote(note);
@@ -63,12 +62,13 @@ void NoteApp::deleteNote(std::shared_ptr<Note> &note) {
 
 void NoteApp::deleteCollection(const std::string &collectionName) {
     if (collectionName == importantNotes.getName() || collections[0].getName() == collectionName)
-        std::cout << "Non puoi";
+        throw std::invalid_argument("This collection can't be deleted!");
+
     auto it = std::find_if(collections.begin(), collections.end(), [&collectionName](Collection c) {
         return c.getName() == collectionName;
     });
     if (it == collections.end())
-        return;
+        throw std::invalid_argument("Name not valid!");
 
     auto notesNames = it->getTitles();
     for (auto &s: notesNames) {

@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 #include "Note.h"
 #include "Collection.h"
 
@@ -28,7 +29,7 @@ public:
 
     void moveNote(std::shared_ptr<Note> note, const std::string &collectionName);
 
-    std::shared_ptr<Note> searchNote(const std::string &name);
+    std::shared_ptr<Note> searchNote(const std::string &name) const;
 
     void lockNote(std::shared_ptr<Note> &note) {
         note->setLocked(true);
