@@ -3,6 +3,7 @@
 
 
 #include <vector>
+#include <algorithm>
 #include "Note.h"
 #include "Collection.h"
 
@@ -35,7 +36,7 @@ public:
         importantNotes.addNote(note);
     }
 
-    void deleteCollection(const std::string &name);
+    void deleteCollection(const std::string &collectionName);
     void deleteNote(std::shared_ptr<Note> &note);
 
     void moveNote(std::shared_ptr<Note> &note, const std::string &name);

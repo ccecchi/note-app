@@ -34,9 +34,26 @@ void NoteApp::deleteNote(std::shared_ptr<Note> &note) {
     importantNotes.deleteNote(note);
 }
 
-void NoteApp::deleteCollection(const std::string &name) {
-    auto it = collections.begin() + collectionIndex(name);
+void NoteApp::deleteCollection(const std::string &collectionName) {
+    if (collectionName == importantNotes.getName())
+        std::cout << "Non puoi";
+    auto it = std::find_if(collections.begin(), collections.end(), [&collectionName](Collection c) {
+        return c.getName() == collectionName;
+    });
+    if (it == collections.end())
+        return;
+
+    auto notesNames = it->getTitles();
+    for (auto &s: notesNames) {
+        auto note = importantNotes.searchNote(s);
+        if (note)
+            importantNotes.deleteNote(note);
+    }
+
     collections.erase(it);
+
+    int index = std::distance(collections.begin(), it) + 1;
+    notesPerCollection.erase(notesPerCollection.begin() + index);
 }
 
 int NoteApp::collectionIndex(const std::string &name) {
