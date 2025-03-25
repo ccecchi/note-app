@@ -54,7 +54,7 @@ public:
 
     int collectionIndex(const std::string &name);
 
-    void update(const std::string &name) override;
+    void update(const std::string &collectionName) override;
 
 private:
     Collection importantNotes;

@@ -66,17 +66,20 @@ int NoteApp::collectionIndex(const std::string &name) {
     return i;
 }
 
-void NoteApp::update(const std::string &name) {
-    auto itNum = notesPerCollection.begin();
-
-    if(name == importantNotes.getName()){
-        *itNum = importantNotes.getNoteCount();
+void NoteApp::update(const std::string &collectionName) {
+    if (collectionName == importantNotes.getName()){
+        notesPerCollection[0] = importantNotes.getNoteCount();
         return;
     }
 
-    itNum += collectionIndex(name);
-    auto itColl = collections.begin() + collectionIndex(name) + 1;
-    *itNum = itColl->getNoteCount();
+    auto it = std::find_if(collections.begin(), collections.end(), [&collectionName](Collection c) {
+        return c.getName() == collectionName;
+    });
+    if (it == collections.end())
+        return;
+
+    int index = std::distance(collections.begin(), it) + 1;
+    notesPerCollection[index] = it->getNoteCount();
 }
 
 std::vector<std::string> NoteApp::getCollectionsNames() const {
