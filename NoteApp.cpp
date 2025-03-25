@@ -62,5 +62,14 @@ void NoteApp::update(const std::string &name) {
     *itNum = itColl->getNoteCount();
 }
 
+std::vector<std::string> NoteApp::getCollectionsNames() const {
+    std::vector<std::string> titles;
+    titles.reserve(collections.size());
+    for (auto &c : collections){
+        titles.push_back(c.getName());
+    }
+    return titles;
+}
+
 
 

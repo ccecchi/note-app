@@ -46,6 +46,14 @@ public:
         return nullptr;
     }
 
+    std::vector<std::string> getTitles() const {
+        std::vector<std::string> titles;
+        titles.reserve(notes.size());
+        for (auto &n : notes){
+            titles.push_back(n->getName());
+        }
+        return titles;
+    }
 
     const std::string &getName() const {
         return name;
