@@ -39,7 +39,7 @@ public:
     void deleteCollection(const std::string &collectionName);
     void deleteNote(std::shared_ptr<Note> &note);
 
-    void moveNote(std::shared_ptr<Note> &note, const std::string &name);
+    void moveNote(std::shared_ptr<Note> note, const std::string &collectionName);
 
     std::shared_ptr<Note> searchNote(const std::string &name);
 
