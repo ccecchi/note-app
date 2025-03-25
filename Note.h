@@ -13,23 +13,13 @@ public:
         return name;
     }
 
-    void setName(const std::string &name) {
-        if (!locked)
-            this->name = name;
-        else
-            std::cout << "Nota Bloccata";
-    }
+    void setName(const std::string &name);
 
     const std::string &getText() const {
         return text;
     }
 
-    void setText(const std::string &text) {
-        if (!locked)
-            this->text = text;
-        else
-            std::cout << "Nota Bloccata";
-    }
+    void setText(const std::string &text);
 
     bool isLocked() const {
         return locked;

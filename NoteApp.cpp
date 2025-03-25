@@ -1,5 +1,28 @@
 #include "NoteApp.h"
 
+void NoteApp::newNote(const std::string &name, const std::string &text, Collection &coll) {
+    std::shared_ptr<Note> note(new Note(name, text));
+    coll.addNote(note);
+}
+
+void NoteApp::newNote(const std::string &name, const std::string &text) {
+    std::shared_ptr<Note> note(new Note(name, text));
+    auto it = collections.begin();
+    it->addNote(note);
+}
+
+void NoteApp::newCollection(const std::string &name) {
+    Collection coll(name);
+    collections.push_back(coll);
+    notesPerCollection.push_back(0);
+}
+
+void NoteApp::addToImportant(const std::shared_ptr<Note> &note) {
+    if (importantNotes.searchNote(note->getName()))
+        std::cout << "Gia importante";
+    importantNotes.addNote(note);
+}
+
 std::shared_ptr<Note> NoteApp::searchNote(const std::string &name) {
     for (auto c: collections) {
         if (c.searchNote(name))
@@ -82,6 +105,3 @@ std::vector<std::string> NoteApp::getCollectionsNames() const {
     }
     return titles;
 }
-
-
-

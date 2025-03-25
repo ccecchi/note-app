@@ -14,28 +14,13 @@ public:
         newCollection("Home");
     }
 
-    void newNote(const std::string &name, const std::string &text, Collection &coll) {
-        std::shared_ptr<Note> note(new Note(name, text));
-        coll.addNote(note);
-    }
+    void newNote(const std::string &name, const std::string &text, Collection &coll);
 
-    void newNote(const std::string &name, const std::string &text) {
-        std::shared_ptr<Note> note(new Note(name, text));
-        auto it = collections.begin();
-        it->addNote(note);
-    }
+    void newNote(const std::string &name, const std::string &text);
 
-    void newCollection(const std::string &name) {
-        Collection coll(name);
-        collections.push_back(coll);
-        notesPerCollection.push_back(0);
-    }
+    void newCollection(const std::string &name);
 
-    void addToImportant(const std::shared_ptr<Note> &note) {
-        if (importantNotes.searchNote(note->getName()))
-            std::cout << "Gia importante";
-        importantNotes.addNote(note);
-    }
+    void addToImportant(const std::shared_ptr<Note> &note);
 
     void deleteCollection(const std::string &collectionName);
 
