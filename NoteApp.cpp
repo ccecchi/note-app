@@ -31,7 +31,7 @@ void NoteApp::deleteNote(std::shared_ptr<Note> &note) {
         if(c.searchNote(note->getName()))
             c.deleteNote(note);
     }
-    important.deleteNote(note);
+    importantNotes.deleteNote(note);
 }
 
 void NoteApp::deleteCollection(const std::string &name) {
@@ -52,8 +52,8 @@ int NoteApp::collectionIndex(const std::string &name) {
 void NoteApp::update(const std::string &name) {
     auto itNum = notesPerCollection.begin();
 
-    if(name == important.getName()){
-        *itNum = important.getNoteCount();
+    if(name == importantNotes.getName()){
+        *itNum = importantNotes.getNoteCount();
         return;
     }
 

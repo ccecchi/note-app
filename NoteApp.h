@@ -8,7 +8,7 @@
 
 class NoteApp : public Observer{
 public:
-    NoteApp(): important("Important"){
+    NoteApp(): importantNotes("Important"){
         notesPerCollection.push_back(0);
         newCollection("Home");
     }
@@ -30,9 +30,9 @@ public:
     }
 
     void addToImportant(const std::shared_ptr<Note> &note){
-        if(important.searchNote(note->getName()))
+        if(importantNotes.searchNote(note->getName()))
             std::cout << "Gia importante";
-        important.addNote(note);
+        importantNotes.addNote(note);
     }
 
     void deleteCollection(const std::string &name);
@@ -56,7 +56,7 @@ public:
     void update(const std::string &name) override;
 
 private:
-    Collection important;
+    Collection importantNotes;
     std::vector<Collection> collections;
     std::vector<int> notesPerCollection;
 
