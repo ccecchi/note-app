@@ -56,15 +56,6 @@ void NoteApp::deleteCollection(const std::string &collectionName) {
     notesPerCollection.erase(notesPerCollection.begin() + index);
 }
 
-int NoteApp::collectionIndex(const std::string &name) {
-    int i = 0;
-    for(auto c: collections){
-        if(c.getName() == name)
-            break;
-        i++;
-    }
-    return i;
-}
 
 void NoteApp::update(const std::string &collectionName) {
     if (collectionName == importantNotes.getName()){

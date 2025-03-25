@@ -52,8 +52,6 @@ public:
 
     std::vector<std::string> getCollectionsNames() const;
 
-    int collectionIndex(const std::string &name);
-
     void update(const std::string &collectionName) override;
 
 private:
