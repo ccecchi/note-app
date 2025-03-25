@@ -14,9 +14,9 @@ public:
         newCollection("Home");
     }
 
-    void newNote(const std::string &name, const std::string &text, Collection &coll);
+    void newNote(const std::string &noteName, const std::string &text, Collection &coll);
 
-    void newNote(const std::string &name, const std::string &text);
+    void newNote(const std::string &noteName, const std::string &text);
 
     void newCollection(const std::string &name);
 

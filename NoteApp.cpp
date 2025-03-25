@@ -1,14 +1,17 @@
 #include "NoteApp.h"
 
-void NoteApp::newNote(const std::string &name, const std::string &text, Collection &coll) {
-    std::shared_ptr<Note> note(new Note(name, text));
+void NoteApp::newNote(const std::string &noteName, const std::string &text, Collection &coll) {
+    if (searchNote(noteName))
+        std::cout << "Nota con nome gia esistente";
+    std::shared_ptr<Note> note(new Note(noteName, text));
     coll.addNote(note);
 }
 
-void NoteApp::newNote(const std::string &name, const std::string &text) {
-    std::shared_ptr<Note> note(new Note(name, text));
-    auto it = collections.begin();
-    it->addNote(note);
+void NoteApp::newNote(const std::string &noteName, const std::string &text) {
+    if (searchNote(noteName))
+        std::cout << "Nota con nome gia esistente";
+    std::shared_ptr<Note> note(new Note(noteName, text));
+    collections[0].addNote(note);
 }
 
 void NoteApp::newCollection(const std::string &name) {
