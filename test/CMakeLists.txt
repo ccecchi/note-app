@@ -14,6 +14,7 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(runAllTests
         runAllTests.cpp
+        testNote.cpp
 )
 
 target_link_libraries(runAllTests GTest::gtest_main note)
