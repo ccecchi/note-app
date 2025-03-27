@@ -6,11 +6,11 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(include)
 
 add_library(note STATIC
-        Note.cpp
+        src/Note.cpp
         include/Note.h
-        Collection.cpp
+        src/Collection.cpp
         include/Collection.h
-        NoteApp.cpp
+        src/NoteApp.cpp
         include/NoteApp.h
         include/Observer.h
         include/Subject.h
