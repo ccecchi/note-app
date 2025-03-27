@@ -15,3 +15,5 @@ add_library(note STATIC
         include/Observer.h
         include/Subject.h
 )
+
+add_subdirectory(test)
