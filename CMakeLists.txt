@@ -3,13 +3,15 @@ project(note)
 
 set(CMAKE_CXX_STANDARD 17)
 
+include_directories(include)
+
 add_library(note STATIC
         Note.cpp
-        Note.h
+        include/Note.h
         Collection.cpp
-        Collection.h
+        include/Collection.h
         NoteApp.cpp
-        NoteApp.h
-        Observer.h
-        Subject.h
+        include/NoteApp.h
+        include/Observer.h
+        include/Subject.h
 )
