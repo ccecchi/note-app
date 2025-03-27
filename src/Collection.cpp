@@ -1,12 +1,10 @@
-//
-// Created by carol on 12/03/2025.
-//
-
 #include "Collection.h"
 
 void Collection::addNote(const std::shared_ptr<Note> &note) {
-    notes.push_back(note);
-    notify();
+    if (note) {
+        notes.push_back(note);
+        notify();
+    }
 }
 
 void Collection::deleteNote(const std::shared_ptr<Note> &note) {
