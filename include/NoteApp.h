@@ -31,14 +31,6 @@ public:
 
     std::shared_ptr<Note> searchNote(const std::string &name) const;
 
-    void lockNote(std::shared_ptr<Note> &note) {
-        note->setLocked(true);
-    }
-
-    void unlockNote(std::shared_ptr<Note> &note) {
-        note->setLocked(false);
-    }
-
     std::vector<std::string> getCollectionsNames() const;
 
     void update(const std::string &collectionName) override;
