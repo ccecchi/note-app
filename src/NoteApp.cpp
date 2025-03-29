@@ -15,14 +15,20 @@ void NoteApp::newNote(const std::string &noteName, const std::string &text) {
 }
 
 void NoteApp::newCollection(const std::string &name) {
+    auto titles = getCollectionsNames();
+    auto it = std::find(titles.begin(), titles.end(), name);
+    if (it != titles.end())
+        throw std::invalid_argument("Collection with this name already exist!");
     Collection coll(name);
+    coll.registerObserver(this);
     collections.push_back(coll);
     notesPerCollection.push_back(0);
+
 }
 
 void NoteApp::addToImportant(const std::shared_ptr<Note> &note) {
     if (importantNotes.searchNote(note->getName()))
-        throw std::invalid_argument("Note is already important");;
+        throw std::invalid_argument("Note is already important");
     importantNotes.addNote(note);
 }
 
