@@ -39,6 +39,12 @@ void NoteApp::addToImportant(const std::shared_ptr<Note> &note) {
     importantNotes.addNote(note);
 }
 
+void NoteApp::removeFromImportant(const std::shared_ptr<Note> &note) {
+    if(!importantNotes.searchNote(note->getName()))
+        throw std::invalid_argument("The note is not important!");
+    importantNotes.deleteNote(note);
+}
+
 std::shared_ptr<Note> NoteApp::searchNote(const std::string &name) const {
     for (auto c: collections) {
         if (c.searchNote(name))

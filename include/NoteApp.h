@@ -20,6 +20,8 @@ public:
 
     void addToImportant(const std::shared_ptr<Note> &note);
 
+    void removeFromImportant(const std::shared_ptr<Note> &note);
+
     void deleteCollection(const std::string &collectionName);
 
     void deleteNote(std::shared_ptr<Note> &note);
