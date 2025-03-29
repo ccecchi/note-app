@@ -1,6 +1,13 @@
 #include "NoteApp.h"
 
-void NoteApp::newNote(const std::string &noteName, const std::string &text, Collection &coll) {
+NoteApp::NoteApp() : importantNotes("Important") {
+    notesPerCollection.push_back(0);
+    importantNotes.registerObserver(this);
+
+    newCollection("Home");
+}
+
+void NoteApp::newNote(const std::string &noteName, const std::string &text, const std::string &collectionName) {
     if (searchNote(noteName))
         throw std::invalid_argument("This name has already been used!");
     std::shared_ptr<Note> note(new Note(noteName, text));

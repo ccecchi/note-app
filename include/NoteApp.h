@@ -10,10 +10,7 @@
 
 class NoteApp : public Observer {
 public:
-    NoteApp() : importantNotes("Important") {
-        notesPerCollection.push_back(0);
-        newCollection("Home");
-    }
+    NoteApp();
 
     void newNote(const std::string &noteName, const std::string &text, Collection &coll);
 
