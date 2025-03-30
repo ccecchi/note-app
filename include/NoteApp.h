@@ -1,7 +1,6 @@
 #ifndef NOTE_NOTEAPP_H
 #define NOTE_NOTEAPP_H
 
-
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
@@ -12,9 +11,9 @@ class NoteApp : public Observer {
 public:
     NoteApp();
 
-    void newNote(const std::string &noteName, const std::string &text, Collection &coll);
-
     void newNote(const std::string &noteName, const std::string &text);
+
+    void newNote(const std::string &noteName, const std::string &text, const std::string &collectionName);
 
     void newCollection(const std::string &name);
 

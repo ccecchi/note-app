@@ -3,15 +3,28 @@
 NoteApp::NoteApp() : importantNotes("Important") {
     notesPerCollection.push_back(0);
     importantNotes.registerObserver(this);
-
     newCollection("Home");
 }
+
+void NoteApp::newNote(const std::string &noteName, const std::string &text) {
+    if (searchNote(noteName))
+        throw std::invalid_argument("This name has already been used!");
+    auto note = std::make_shared<Note>(noteName, text);
+    collections[0].addNote(note);
+}
+
 
 void NoteApp::newNote(const std::string &noteName, const std::string &text, const std::string &collectionName) {
     if (searchNote(noteName))
         throw std::invalid_argument("This name has already been used!");
-    std::shared_ptr<Note> note(new Note(noteName, text));
-    coll.addNote(note);
+    auto it = std::find_if(collections.begin(), collections.end(), [&collectionName](const Collection &c) {
+        return c.getName() == collectionName;
+    });
+    if (it == collections.end())
+        throw std::invalid_argument("This collection doesn't exist!");
+
+    auto note = std::make_shared<Note>(noteName, text);
+    collections[it - collections.begin()].addNote(note);
 }
 
 void NoteApp::newNote(const std::string &noteName, const std::string &text) {
