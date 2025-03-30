@@ -31,7 +31,7 @@ public:
 
     void deleteNote(const std::shared_ptr<Note> &note);
 
-    std::shared_ptr<Note> searchNote(const std::string &name) const;
+    std::shared_ptr<Note> searchNote(const std::string &noteName) const;
 
     std::vector<std::string> getTitles() const;
 

@@ -12,12 +12,14 @@ void Collection::deleteNote(const std::shared_ptr<Note> &note) {
     if (it != notes.end()) {
         notes.erase(it);
         notify();
+        return;
     }
+    throw std::invalid_argument("Invalid pointer");
 }
 
-std::shared_ptr<Note> Collection::searchNote(const std::string &name) const {
+std::shared_ptr<Note> Collection::searchNote(const std::string &noteName) const {
     for (auto n: notes) {
-        if (n->getName() == name)
+        if (n->getName() == noteName)
             return n;
     }
     return nullptr;
