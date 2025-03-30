@@ -105,7 +105,7 @@ TEST(NoteAppTest, TestMoveNote) {
     NoteApp n;
     n.newCollection("coll1");
     n.newCollection("coll2");
-    n.newNote("note1", "text1","coll1");
+    n.newNote("note1", "text1", "coll1");
     auto c1 = n.searchCollection("coll1");
     auto c2 = n.searchCollection("coll2");
     n.moveNote("note1", "coll2");
@@ -120,9 +120,9 @@ TEST(NoteAppTest, TestMoveNote) {
     ASSERT_EQ(n.getNotesPerCollection()[1], 1);
     ASSERT_EQ(n.getNotesPerCollection()[2], 0);
 
-    ASSERT_THROW(n.moveNote("NOTE","coll"),std::invalid_argument);
-    ASSERT_THROW(n.moveNote("note1","COLL"),std::invalid_argument);
-    ASSERT_THROW(n.moveNote("note1", "Home"),std::invalid_argument);
+    ASSERT_THROW(n.moveNote("NOTE", "coll"), std::invalid_argument);
+    ASSERT_THROW(n.moveNote("note1", "COLL"), std::invalid_argument);
+    ASSERT_THROW(n.moveNote("note1", "Home"), std::invalid_argument);
 }
 
 TEST(NoteAppTest, TestDeleteNote) {
@@ -154,7 +154,7 @@ TEST(NoteApptest, TestDeleteCollection) {
     ASSERT_EQ(n.getNotesPerCollection()[0], 0);
     ASSERT_THROW(n.deleteCollection("COLL"), std::invalid_argument);
     ASSERT_THROW(n.deleteCollection("Important"), std::invalid_argument);
-    ASSERT_THROW(n.deleteCollection("Home"),std::invalid_argument);
+    ASSERT_THROW(n.deleteCollection("Home"), std::invalid_argument);
 }
 
 TEST(NoteAppTest, TestGetCollectionNames) {
