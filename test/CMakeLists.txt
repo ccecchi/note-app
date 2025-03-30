@@ -16,6 +16,7 @@ add_executable(runAllTests
         runAllTests.cpp
         testNote.cpp
         testCollection.cpp
+        testNoteApp.cpp
 )
 
 target_link_libraries(runAllTests GTest::gtest_main note)
