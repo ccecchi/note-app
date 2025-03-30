@@ -25,7 +25,7 @@ public:
 
     std::shared_ptr<Collection> searchCollection(const std::string &name) const;
 
-    void moveNote(std::string &noteName, const std::string &collectionName);
+    void moveNote(const std::string &noteName, const std::string &collectionName);
 
     void deleteNote(const std::string &name);
 
@@ -35,11 +35,14 @@ public:
 
     void update(const std::string &collectionName) override;
 
-private:
-    Collection importantNotes;
-    std::vector<Collection> collections;
-    std::vector<int> notesPerCollection;
+    std::vector<int> getNotesPerCollection() const {
+        return notesPerCollection;
+    }
 
+private:
+    std::shared_ptr<Collection> importantNotes;
+    std::vector<std::shared_ptr<Collection>> collections;
+    std::vector<int> notesPerCollection;
 };
 
 
