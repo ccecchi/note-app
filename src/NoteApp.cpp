@@ -69,6 +69,17 @@ std::shared_ptr<Note> NoteApp::searchNote(const std::string &name) const {
     return nullptr;
 }
 
+
+std::shared_ptr<Collection> NoteApp::searchCollection(const std::string &name) const {
+    if (name == importantNotes.getName())
+        return std::make_shared<Collection>(importantNotes);
+    for (auto &c : collections){
+        if(c.getName() == name)
+            return std::make_shared<Collection>(c);
+    }
+    return nullptr;
+}
+
 void NoteApp::moveNote(std::shared_ptr<Note> note, const std::string &collectionName) {
     for (auto c: collections) {
         if (c.searchNote(note->getName())) {
