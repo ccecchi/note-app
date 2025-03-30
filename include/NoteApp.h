@@ -17,17 +17,19 @@ public:
 
     void newCollection(const std::string &name);
 
-    void addToImportant(const std::shared_ptr<Note> &note);
+    void addToImportant(const std::string &name);
 
-    void removeFromImportant(const std::shared_ptr<Note> &note);
-
-    void deleteCollection(const std::string &collectionName);
-
-    void deleteNote(std::shared_ptr<Note> &note);
-
-    void moveNote(std::shared_ptr<Note> note, const std::string &collectionName);
+    void removeFromImportant(const std::string &note);
 
     std::shared_ptr<Note> searchNote(const std::string &name) const;
+
+    std::shared_ptr<Collection> searchCollection(const std::string &name) const;
+
+    void moveNote(std::string &noteName, const std::string &collectionName);
+
+    void deleteNote(const std::string &name);
+
+    void deleteCollection(const std::string &collectionName);
 
     std::vector<std::string> getCollectionsNames() const;
 
