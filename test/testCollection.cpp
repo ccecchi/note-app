@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "Collection.h"
 
-class MockObserver : public Observer {
+class TestObserver : public Observer {
 public:
     void update(const std::string &collectionName) override {
         notified = true;
@@ -20,7 +20,7 @@ private:
 };
 
 TEST(CollectionTest, TestAddNote) {
-    MockObserver obs;
+    TestObserver obs;
 
     auto n = std::make_shared<Note>("name", "text");
     Collection c("collection");
@@ -39,7 +39,7 @@ TEST(CollectionTest, TestAddNote) {
 }
 
 TEST(CollectionTest, TestDeleteNote) {
-    MockObserver obs;
+    TestObserver obs;
     auto n1 = std::make_shared<Note>("name1", "text1");
     auto n2 = std::make_shared<Note>("name2", "text2");
     Collection c("collection");
@@ -48,7 +48,7 @@ TEST(CollectionTest, TestDeleteNote) {
     c.addNote(n2);
 
     obs.resetNotified();
-    c.deleteNote(nullptr);
+    ASSERT_THROW(c.deleteNote(nullptr), std::invalid_argument);
     auto titles = c.getTitles();
     ASSERT_EQ(titles.size(), 2);
     ASSERT_FALSE(obs.wasNotified());
@@ -83,7 +83,7 @@ TEST(CollectionTest, TestSearchNote) {
     auto n = c.searchNote("ABC");
     ASSERT_EQ(n, nullptr);
     n = c.searchNote("name1");
-    ASSERT_EQ(n,n1);
+    ASSERT_EQ(n, n1);
     n = c.searchNote("name2");
-    ASSERT_EQ(n,n2);
+    ASSERT_EQ(n, n2);
 }
