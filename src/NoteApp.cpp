@@ -80,7 +80,14 @@ std::shared_ptr<Collection> NoteApp::searchCollection(const std::string &name) c
     return nullptr;
 }
 
-void NoteApp::moveNote(std::shared_ptr<Note> note, const std::string &collectionName) {
+
+void NoteApp::moveNote(const std::string &noteName, const std::string &collectionName) {
+    auto note = searchNote(noteName);
+    if (!note)
+        throw std::invalid_argument("This note doesn't exist!");
+    if (!searchCollection(collectionName))
+        throw std::invalid_argument("This collection doesn't exist!");
+
     for (auto c: collections) {
         if (c.searchNote(note->getName())) {
             if (c.getName() == collectionName)
