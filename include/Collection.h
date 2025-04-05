@@ -37,6 +37,10 @@ public:
 
     std::vector<std::shared_ptr<Note>> searchNote(const std::string &noteName) const;
 
+    bool modifyNoteTitle(std::shared_ptr<Note> &note, const std::string &title);
+
+    bool modifyNoteText(std::shared_ptr<Note> &note, const std::string &text);
+
     std::vector<std::string> getTitles() const;
 
     const std::string &getName() const {

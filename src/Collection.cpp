@@ -60,3 +60,19 @@ std::vector<std::string> Collection::getTitles() const {
     }
     return titles;
 }
+
+bool Collection::modifyNoteTitle(std::shared_ptr<Note> &note, const std::string &title) {
+    if (note->isLocked())
+        return false;
+    if (title != note->getName())
+        note->setName(title);
+    return true;
+}
+
+bool Collection::modifyNoteText(std::shared_ptr<Note> &note, const std::string &text) {
+    if (note->isLocked())
+        return false;
+    if (text != note->getText())
+        note->setText(text);
+    return true;
+}

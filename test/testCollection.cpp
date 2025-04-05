@@ -159,3 +159,25 @@ TEST(CollectionTest, TestSearchNote) {
     ASSERT_EQ(n[0], n1);
     ASSERT_EQ(n[1], n2);
 }
+
+TEST(CollectionTest, TestModifyNoteTitle) {
+    auto n1 = std::make_shared<Note>("name1", "text1");
+    Collection c("collection");
+    c.addNote(n1);
+
+    ASSERT_TRUE(c.modifyNoteTitle(n1, "NewName"));
+    ASSERT_EQ(c.getTitles()[0], "NewName");
+    n1->setLocked(true);
+    ASSERT_FALSE(c.modifyNoteTitle(n1, "NAME"));
+}
+
+TEST(CollectionTest, TestModifyNoteText) {
+    auto n1 = std::make_shared<Note>("name1", "text1");
+    Collection c("collection");
+    c.addNote(n1);
+
+    ASSERT_TRUE(c.modifyNoteText(n1, "NewText"));
+    ASSERT_EQ(n1->getText(), "NewText");
+    n1->setLocked(true);
+    ASSERT_FALSE(c.modifyNoteTitle(n1, "TEXT"));
+}
