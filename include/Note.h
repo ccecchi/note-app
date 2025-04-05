@@ -29,11 +29,19 @@ public:
         this->locked = locked;
     }
 
+    bool isImportant() const {
+        return important;
+    }
+
+    void setImportant(bool important){
+        this->important = important;
+    }
 
 private:
     std::string name;
     std::string text = "";
     bool locked = false;
+    bool important = false;
 };
 
 

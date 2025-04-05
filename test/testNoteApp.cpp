@@ -64,6 +64,8 @@ TEST(NoteAppTest, TestAddToImportant) {
     ASSERT_EQ(n.getNotesPerCollection()[0], 1);
     ASSERT_EQ(n.getNotesPerCollection()[1], 1);
     ASSERT_EQ(coll->getTitles()[0], imp->getTitles()[0]);
+    ASSERT_TRUE(n.searchNote("note1")->isImportant());
+    ASSERT_EQ(coll->getImportantNotes().size(), 1);
 
     ASSERT_THROW(n.addToImportant("note1"), std::invalid_argument);
     ASSERT_THROW(n.addToImportant("NOTE"), std::invalid_argument);
@@ -72,11 +74,15 @@ TEST(NoteAppTest, TestAddToImportant) {
 TEST(NoteAppTest, TestRemoveFromImportant) {
     NoteApp n;
     n.newNote("note1", "text1");
+    auto coll = n.searchCollection("Home");
     n.addToImportant("note1");
     n.removeFromImportant("note1");
 
     ASSERT_EQ(n.getNotesPerCollection()[0], 0);
     ASSERT_EQ(n.getNotesPerCollection()[1], 1);
+    ASSERT_FALSE(n.searchNote("note1")->isLocked());
+    ASSERT_EQ(coll->getImportantNotes().size(), 0);
+
     ASSERT_THROW(n.removeFromImportant("note1"), std::invalid_argument);
     ASSERT_THROW(n.removeFromImportant("NOTE"), std::invalid_argument);
 }

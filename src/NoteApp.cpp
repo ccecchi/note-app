@@ -43,22 +43,24 @@ void NoteApp::newCollection(const std::string &name) {
 
 
 void NoteApp::addToImportant(const std::string &name) {
-    if (importantNotes->searchNote(name))
+    if (!importantNotes->searchNote(name).empty())
         throw std::invalid_argument("Note is already important");
     auto note = searchNote(name);
     if (!note)
         throw std::invalid_argument("This note doesn't exist!");
     importantNotes->addNote(note);
+    note->setImportant(true);
 }
 
 
 void NoteApp::removeFromImportant(const std::string &name) {
-    if (!importantNotes->searchNote(name))
+    if (importantNotes->searchNote(name).empty())
         throw std::invalid_argument("The note is not important!");
     auto note = searchNote(name);
     if (!note)
         throw std::invalid_argument("This note doesn't exist!");
     importantNotes->deleteNote(note);
+    note->setImportant(false);
 }
 
 
