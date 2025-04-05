@@ -38,18 +38,26 @@ TEST(CollectionTest, TestAddNote) {
     ASSERT_FALSE(obs.wasNotified());
 }
 
-TEST(CollectionTest, TestDeleteNote) {
+TEST(CollectionTest, TestDeleteNoteWithPointer) {
     TestObserver obs;
     auto n1 = std::make_shared<Note>("name1", "text1");
     auto n2 = std::make_shared<Note>("name2", "text2");
+    auto n3 = std::make_shared<Note>("NAME", "TEXT");
     Collection c("collection");
     c.registerObserver(&obs);
     c.addNote(n1);
     c.addNote(n2);
+    n2->setLocked(true);
 
     obs.resetNotified();
-    ASSERT_THROW(c.deleteNote(nullptr), std::invalid_argument);
+    ASSERT_EQ(c.deleteNote(n2), false);
     auto titles = c.getTitles();
+    ASSERT_EQ(titles.size(), 2);
+    ASSERT_FALSE(obs.wasNotified());
+
+    obs.resetNotified();
+    ASSERT_EQ(c.deleteNote(n3), false);
+    titles = c.getTitles();
     ASSERT_EQ(titles.size(), 2);
     ASSERT_FALSE(obs.wasNotified());
 
@@ -59,6 +67,67 @@ TEST(CollectionTest, TestDeleteNote) {
     ASSERT_EQ(titles[0], "name2");
     ASSERT_TRUE(obs.wasNotified());
 }
+
+TEST(CollectionTest, TestDeleteNoteWithTitle) {
+    TestObserver obs;
+    auto n1 = std::make_shared<Note>("name1", "text1");
+    auto n2 = std::make_shared<Note>("name2", "text2");
+    auto n3 = std::make_shared<Note>("NAME", "TEXT");
+    Collection c("collection");
+    c.registerObserver(&obs);
+    c.addNote(n1);
+    c.addNote(n2);
+    n2->setLocked(true);
+
+    obs.resetNotified();
+    ASSERT_EQ(c.deleteNote("name2"), false);
+    auto titles = c.getTitles();
+    ASSERT_EQ(titles.size(), 2);
+    ASSERT_FALSE(obs.wasNotified());
+
+    obs.resetNotified();
+    ASSERT_EQ(c.deleteNote("NOTE"), false);
+    titles = c.getTitles();
+    ASSERT_EQ(titles.size(), 2);
+    ASSERT_FALSE(obs.wasNotified());
+
+    c.deleteNote("name1");
+    titles = c.getTitles();
+    ASSERT_EQ(titles.size(), 1);
+    ASSERT_EQ(titles[0], "name2");
+    ASSERT_TRUE(obs.wasNotified());
+}
+
+TEST(CollectionTest, TestDeleteNoteWithPosition) {
+    TestObserver obs;
+    auto n1 = std::make_shared<Note>("name1", "text1");
+    auto n2 = std::make_shared<Note>("name2", "text2");
+    auto n3 = std::make_shared<Note>("NAME", "TEXT");
+    Collection c("collection");
+    c.registerObserver(&obs);
+    c.addNote(n1);
+    c.addNote(n2);
+    n2->setLocked(true);
+
+    obs.resetNotified();
+    ASSERT_EQ(c.deleteNote(2), false);
+    auto titles = c.getTitles();
+    ASSERT_EQ(titles.size(), 2);
+    ASSERT_FALSE(obs.wasNotified());
+
+    obs.resetNotified();
+    ASSERT_EQ(c.deleteNote(4), false);
+    titles = c.getTitles();
+    ASSERT_EQ(titles.size(), 2);
+    ASSERT_FALSE(obs.wasNotified());
+
+    c.deleteNote(1);
+    titles = c.getTitles();
+    ASSERT_EQ(titles.size(), 1);
+    ASSERT_EQ(titles[0], "name2");
+    ASSERT_TRUE(obs.wasNotified());
+}
+
 
 TEST(CollectionTest, TestGetTitles) {
     auto n1 = std::make_shared<Note>("name1", "text1");

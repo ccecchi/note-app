@@ -7,20 +7,46 @@ void Collection::addNote(const std::shared_ptr<Note> &note) {
     }
 }
 
-void Collection::deleteNote(const std::shared_ptr<Note> &note) {
+bool Collection::deleteNote(const std::shared_ptr<Note> &note) {
+    if (note->isLocked())
+        return false;
     auto it = std::find(notes.begin(), notes.end(), note);
     if (it != notes.end()) {
         notes.erase(it);
         notify();
-        return;
+        return true;
     }
-    throw std::invalid_argument("Invalid pointer");
+    return false;
 }
 
 std::shared_ptr<Note> Collection::searchNote(const std::string &noteName) const {
     for (auto n: notes) {
         if (n->getName() == noteName)
             return n;
+bool Collection::deleteNote(int position) {
+    if (position > notes.size())
+        return false;
+    auto it = notes.begin() + position - 1;
+    if ((*it)->isLocked())
+        return false;
+    notes.erase(it);
+    notify();
+    return true;
+}
+
+bool Collection::deleteNote(const std::string &title) {
+    auto it = std::find_if(notes.begin(), notes.end(), [&title](auto &n) {
+        return n->getName() == title;
+    });
+    if (it == notes.end())
+        return false;
+    if((*it)->isLocked())
+        return false;
+    notes.erase(it);
+    notify();
+    return true;
+}
+
     }
     return nullptr;
 }
