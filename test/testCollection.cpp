@@ -181,3 +181,17 @@ TEST(CollectionTest, TestModifyNoteText) {
     n1->setLocked(true);
     ASSERT_FALSE(c.modifyNoteTitle(n1, "TEXT"));
 }
+
+TEST(CollectionTest, TestGetImportantNotes) {
+    auto n1 = std::make_shared<Note>("name1", "text1");
+    auto n2 = std::make_shared<Note>("name2", "text2");
+    Collection c("collection");
+    c.addNote(n1);
+    c.addNote(n2);
+
+    ASSERT_EQ(c.getImportantNotes().size(), 0);
+
+    n2->setImportant(true);
+    ASSERT_EQ(c.getImportantNotes().size(), 1);
+    ASSERT_EQ(c.getImportantNotes()[0], n2);
+}

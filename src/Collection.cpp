@@ -61,6 +61,15 @@ std::vector<std::string> Collection::getTitles() const {
     return titles;
 }
 
+std::vector<std::shared_ptr<Note>> Collection::getImportantNotes() const {
+    std::vector<std::shared_ptr<Note>> impNotes;
+    for (auto &n: notes) {
+        if (n->isImportant())
+            impNotes.push_back(n);
+    }
+    return impNotes;
+}
+
 bool Collection::modifyNoteTitle(std::shared_ptr<Note> &note, const std::string &title) {
     if (note->isLocked())
         return false;
