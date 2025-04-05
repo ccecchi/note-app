@@ -66,8 +66,8 @@ void NoteApp::removeFromImportant(const std::string &name) {
 
 std::shared_ptr<Note> NoteApp::searchNote(const std::string &name) const {
     for (const auto &c: collections) {
-        if (c->searchNote(name))
-            return c->searchNote(name);
+        if (!c->searchNote(name).empty())
+            return c->searchNote(name)[0];
     }
     return nullptr;
 }
@@ -91,15 +91,15 @@ void NoteApp::moveNote(const std::string &noteName, const std::string &collectio
     if (!searchCollection(collectionName))
         throw std::invalid_argument("This collection doesn't exist!");
 
-    for (auto c: collections) {
-        if (c->searchNote(noteName)) {
+    for (auto &c: collections) {
+        if (!c->searchNote(noteName).empty()) {
             if (c->getName() == collectionName)
                 throw std::invalid_argument("The note is already in the collection!");
             c->deleteNote(note);
             break;
         }
     }
-    for (auto c: collections) {
+    for (auto &c: collections) {
         if (c->getName() == collectionName)
             c->addNote(note);
     }
@@ -110,14 +110,14 @@ void NoteApp::deleteNote(const std::string &name) {
     if (searchNote(name)->isLocked())
         throw std::invalid_argument("The note is locked!");
 
-    for (auto c: collections) {
+    for (auto &c: collections) {
         auto note = c->searchNote(name);
-        if (note)
-            c->deleteNote(note);
+        if (!note.empty())
+            c->deleteNote(note[0]);
     }
     auto n = importantNotes->searchNote(name);
-    if (n)
-        importantNotes->deleteNote(n);
+    if (!n.empty())
+        importantNotes->deleteNote(n[0]);
 }
 
 
@@ -132,8 +132,8 @@ void NoteApp::deleteCollection(const std::string &collectionName) {
 
     auto notesNames = (*it)->getTitles();
     for (auto &s: notesNames) {
-        if (importantNotes->searchNote(s))
-            importantNotes->deleteNote(importantNotes->searchNote(s));
+        if (!importantNotes->searchNote(s).empty())
+            importantNotes->deleteNote(importantNotes->searchNote(s)[0]);
     }
     collections.erase(it);
 
