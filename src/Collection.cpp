@@ -19,10 +19,6 @@ bool Collection::deleteNote(const std::shared_ptr<Note> &note) {
     return false;
 }
 
-std::shared_ptr<Note> Collection::searchNote(const std::string &noteName) const {
-    for (auto n: notes) {
-        if (n->getName() == noteName)
-            return n;
 bool Collection::deleteNote(int position) {
     if (position > notes.size())
         return false;
@@ -47,8 +43,13 @@ bool Collection::deleteNote(const std::string &title) {
     return true;
 }
 
+std::vector<std::shared_ptr<Note>> Collection::searchNote(const std::string &s) const {
+    std::vector<std::shared_ptr<Note>> vector;
+    for (auto &n: notes) {
+        if (n->getName().find(s) != std::string::npos)
+            vector.push_back(n);
     }
-    return nullptr;
+    return vector;
 }
 
 std::vector<std::string> Collection::getTitles() const {

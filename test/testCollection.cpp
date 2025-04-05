@@ -150,9 +150,12 @@ TEST(CollectionTest, TestSearchNote) {
     c.addNote(n2);
 
     auto n = c.searchNote("ABC");
-    ASSERT_EQ(n, nullptr);
+    ASSERT_EQ(n.size(), 0);
     n = c.searchNote("name1");
-    ASSERT_EQ(n, n1);
-    n = c.searchNote("name2");
-    ASSERT_EQ(n, n2);
+    ASSERT_EQ(n.size(), 1);
+    ASSERT_EQ(n[0], n1);
+    n = c.searchNote("name");
+    ASSERT_EQ(n.size(), 2);
+    ASSERT_EQ(n[0], n1);
+    ASSERT_EQ(n[1], n2);
 }
